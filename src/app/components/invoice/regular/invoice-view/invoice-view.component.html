@@ -1,0 +1,22 @@
+<ng-template #loading_info>
+  loading...
+</ng-template>
+
+<div *ngIf="invoice; else loading_info">
+
+  <div *ngIf="!invoice.metadata_status.base_doc_id">
+    <app-invoice-regular-view
+      [invoiceInput]="invoice">
+    </app-invoice-regular-view>
+  </div>
+
+  <div *ngIf="invoice.metadata_status.base_doc_id">
+    <app-invoice-correction-view
+      [correctionNumber]="correctionNumber"
+      [correctionDate]="correctionDate"
+      [oldInvoice]="oldInvoice"
+      [newInvoice]="newInvoice">
+    </app-invoice-correction-view>
+  </div>
+
+</div>

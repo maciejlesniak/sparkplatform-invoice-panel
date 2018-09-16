@@ -1,0 +1,8 @@
+<app-company-info [companyId]="companyId"></app-company-info>
+
+<div class="container mt-5">
+  <div class="float-right mt-3 mb-5">
+    <button type="button" class="btn btn-lg btn-primary" (click)="onCancel()">Companies list</button>
+    <button type="button" class="btn btn-lg btn-link" routerLink="/issuer/{{companyId}}/update">Update</button>
+  </div>
+</div>

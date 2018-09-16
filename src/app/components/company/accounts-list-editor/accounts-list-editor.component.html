@@ -1,0 +1,13 @@
+<div [ngClass]="{'row': true, 'mb-5': i !== accounts.length-1}" *ngFor="let acc of accounts; let i = index;">
+  <div class="col col-lg-11">
+    <app-account-editor [account]="acc" [index]="i" [readOnly]="true"></app-account-editor>
+  </div>
+  <div class="col col-1">
+    <a class="btn btn-danger text-light btn-sm btn-xsm-box m-1 float-right" (click)="delRecord(i)"><i class="fa fa-minus"></i></a>
+  </div>
+</div>
+
+<div class="mt-5">
+  <app-account-editor [account]="newAccount" [index]="accounts.length"></app-account-editor>
+  <button type="button" class="btn btn-light btn-sm float-right" (click)="addRecord()">Add account</button>
+</div>

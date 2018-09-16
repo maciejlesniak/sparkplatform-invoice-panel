@@ -1,0 +1,4 @@
+.invoice-content {
+  page-break-after: always;
+  page-break-inside: avoid;
+}

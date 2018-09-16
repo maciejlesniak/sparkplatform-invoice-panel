@@ -1,0 +1,27 @@
+<div class="row mt-3">
+  <div class="col">
+
+    <h2>Issuers</h2>
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Short Name</th>
+        <th scope="col">NIP</th>
+        <th scope="col">City</th>
+        <th scope="col">Manage</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let issuer of issuers">
+        <th scope="row">{{issuer.shortName}}</th>
+        <td>{{issuer.nip | nipFormat}}</td>
+        <td>{{issuer.city}}</td>
+        <td>
+          <button type="button" class="btn btn-primary btn-sm" routerLink="/issuer/{{issuer.id}}">Show</button>
+          <button type="button" class="btn btn-light btn-sm" routerLink="/issuer/{{issuer.id}}/update">Update</button>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

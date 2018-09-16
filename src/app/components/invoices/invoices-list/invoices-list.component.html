@@ -1,0 +1,77 @@
+<ng-template #loading_info>
+  loading...
+</ng-template>
+
+<ng-template #no_invoices>
+  No invoices to show ;(
+</ng-template>
+
+<div *ngIf="invoices; else loading_info">
+  <div *ngIf="invoices.length > 0; then invoices_list else no_invoices"></div>
+</div>
+
+<ng-template #invoices_list>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">ID</th>
+      <th scope="col">Contractor</th>
+      <th scope="col">Total nett value</th>
+      <th scope="col">Manage</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <ng-template ngFor let-invoice [ngForOf]="invoices">
+      <tr>
+        <td>{{invoice.date | date: 'yyyy/MM/dd'}}</td>
+        <td><span class="img-thumbnail text-info">{{invoice.invoiceBaseId}}</span></td>
+        <td>
+          <p class="badge badge badge-warning p-1" *ngIf="invoice.baseInvoiceObjId">
+            <i class="fa fa-file-o mr-1 ml-1" aria-hidden="true"></i>Most recent version
+          </p>
+          <p class="mb-0">
+            {{invoice.contractor.name}}<br>
+            <small class="text-muted">VAT#: {{invoice.contractor.nip | nipFormat}}</small>
+            <br>
+          </p>
+          <p>
+            <span class="badge badge-pill badge-light text-muted font-weight-normal" *ngFor="let record of invoice.subjects">{{record}}</span>
+          </p>
+        </td>
+        <td class="text-right" style="white-space: nowrap">{{invoice.totalNettVal | currency: invoice.currencySymbol : 'symbol-narrow': '0.2-2'}}</td>
+        <td class="text-nowrap">
+          <button type="button" class="btn btn-primary btn-sm" routerLink="/documents/invoice/{{invoice.objId}}">Show details</button>
+          <button type="button" class="btn btn-danger btn-sm" *ngIf="invoice.lock !== 'CHANGES_NOT_ALLOWED'" routerLink="/documents/invoice/{{invoice.objId}}/correction">Correct</button>
+          <button type="button" class="btn btn-link text-danger btn-sm" *ngIf="invoice.lock === 'CHANGES_NOT_ALLOWED'" (click)="onDelete(invoice.objId)">Delete</button>
+        </td>
+      </tr>
+      <tr *ngIf="invoice.baseInvoiceObjId" class="borderless">
+        <td class="text-muted">{{baseInvoices[invoice.baseInvoiceObjId].date | date: 'yyyy/MM/dd'}}</td>
+        <td>
+          <span class="text-muted"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{baseInvoices[invoice.baseInvoiceObjId].invoiceBaseId}}</span>
+        </td>
+        <td class="text-muted">
+          <p class="mb-0">
+            <i class="fa fa-arrow-up mr-2" aria-hidden="true"></i>{{baseInvoices[invoice.baseInvoiceObjId].contractor.name}}<br>
+            <small class="text-muted">VAT#: {{baseInvoices[invoice.baseInvoiceObjId].contractor.nip | nipFormat}}</small>
+          </p>
+          <p>
+            <span class="badge badge-pill badge-light text-muted font-weight-normal" *ngFor="let record of baseInvoices[invoice.baseInvoiceObjId].subjects">{{record}}</span>
+          </p>
+        </td>
+        <td class="text-right text-muted" style="white-space: nowrap">
+          {{baseInvoices[invoice.baseInvoiceObjId].totalNettVal | currency: baseInvoices[invoice.baseInvoiceObjId].currencySymbol : 'symbol-narrow': '0.2-2'}}
+        </td>
+        <td>
+          <button type="button" class="btn btn-link text-danger btn-sm" *ngIf="baseInvoices[invoice.baseInvoiceObjId].lock !== 'CHANGES_NOT_ALLOWED'"
+                  (click)="onDelete(invoice.baseInvoiceObjId)">Delete
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+    </tbody>
+
+  </table>
+</ng-template>

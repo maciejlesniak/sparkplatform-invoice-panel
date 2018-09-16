@@ -1,0 +1,117 @@
+<ng-template #loading>
+  Loading...
+</ng-template>
+
+<div class="container mt-5 invoice-content" *ngIf="invoiceInput; else loading">
+  <div class="row">
+    <div class="col text-center">
+      <h1><span i18n>Invoice</span> {{invoiceInput.base_number}}</h1>
+
+      <h5 *ngIf="invoiceNumberCaption" [ngSwitch]="invoiceNumberCaption.substr(0,3)">
+        <kbd *ngSwitchCase="'old'" i18n>Base invoice version (old) for correction invoice {{invoiceNumberCaption.substr(4)}}</kbd>
+        <kbd *ngSwitchCase="'new'" i18n>Corrected invoice version (new) for correction invoice  {{invoiceNumberCaption.substr(4)}}</kbd>
+      </h5>
+      <p><span i18n>Creation date:</span> {{invoiceInput.created | date:'yyyy-MM-dd'}}, <span i18n>Sell date:</span> {{invoiceInput.sold | date:'yyyy-MM-dd'}}</p>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col">
+      <h4 i18n>Issuer</h4>
+      <address>
+        <strong>{{invoiceInput.issuer.full_name}}</strong><br>
+        {{invoiceInput.issuer.address.street}} {{invoiceInput.issuer.address.house}} {{invoiceInput.issuer.address.local}}<br>
+        {{invoiceInput.issuer.address.zip}} {{invoiceInput.issuer.address.zip_city}}<br>
+        <span i18n>VAT#:</span> {{invoiceInput.issuer.nip | nipFormat}}<br>
+        <span i18n>Rep.:</span> {{invoiceInput.issuer.coordinator.first_name}} {{invoiceInput.issuer.coordinator.last_name}}
+      </address>
+    </div>
+    <div class="col">
+      <h4 i18n>Contractor</h4>
+      <address>
+        <strong>{{invoiceInput.contractor.full_name}}</strong><br>
+        {{invoiceInput.contractor.address.street}} {{invoiceInput.contractor.address.house}} {{invoiceInput.contractor.address.local}}<br>
+        {{invoiceInput.contractor.address.zip}} {{invoiceInput.contractor.address.zip_city}}<br>
+        <span i18n>VAT#:</span> {{invoiceInput.contractor.nip | nipFormat}}<br>
+        <span i18n>Rep.:</span> {{invoiceInput.contractor.coordinator.first_name}} {{invoiceInput.contractor.coordinator.last_name}}
+      </address>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col">
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col" i18n>#</th>
+          <th scope="col" i18n>Subject</th>
+          <th scope="col" i18n>Qty</th>
+          <th scope="col" i18n>Units</th>
+          <th scope="col" i18n>Nett unit price</th>
+          <th scope="col" i18n>VAT %</th>
+          <th scope="col" i18n>Nett value</th>
+          <th scope="col" i18n>VAT value</th>
+          <th scope="col" i18n>Gross value</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let record of invoiceInput.records; let i = index;">
+          <th scope="row">{{i+1}}.</th>
+          <td>{{record.subject}}</td>
+          <td>{{record.qty | number: '0.0-2'}}</td>
+          <td>{{record.units}}</td>
+          <td class="text-nowrap">{{record.unit_price | currency: record.currency_symbol : 'symbol-narrow': '0.2-2'}}</td>
+          <td class="text-nowrap">{{record.tax | percent: '0.0-2'}}</td>
+          <td class="text-nowrap">{{countNettValue(i) | currency: record.currency_symbol : 'symbol-narrow': '0.2-2'}}</td>
+          <td class="text-nowrap">{{countTax(i) | currency: record.currency_symbol : 'symbol-narrow': '0.2-2'}}</td>
+          <td class="text-nowrap">{{countGrossValue(i) | currency: record.currency_symbol : 'symbol-narrow': '0.2-2'}}</td>
+        </tr>
+        <tr>
+          <th scope="row" colspan="6" i18n>Total</th>
+          <th class="text-nowrap">{{countNettTotal() | currency: invoiceInput.records[0].currency_symbol : 'symbol-narrow': '0.2-2'}}</th>
+          <th class="text-nowrap">{{countVatTotal() | currency: invoiceInput.records[0].currency_symbol : 'symbol-narrow': '0.2-2'}}</th>
+          <th class="text-nowrap">{{countGrossTotal() | currency: invoiceInput.records[0].currency_symbol : 'symbol-narrow': '0.2-2'}}</th>
+        </tr>
+        <tr *ngFor="let oneVatRecord of mapVatTotalValues()">
+          <th scope="row" colspan="5" class="border-0"></th>
+          <td class="text-nowrap">{{oneVatRecord.tax | percent: '0.0-2'}}</td>
+          <td></td>
+          <td class="text-nowrap">{{(oneVatRecord.taxTotalValue | currency: invoiceInput.records[0].currency_symbol : 'symbol-narrow': '0.2-2')}}</td>
+          <td></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col">
+      <h5 i18n>Gross total price:</h5>
+      <p class="text-nowrap">
+        {{countGrossTotal() | currency: invoiceInput.records[0].currency_symbol : 'symbol-narrow': '0.2-2'}}<br>
+        <span class="text-muted"><span>Słownie:</span> {{countGrossTotal()  | spell: ' '}}</span></p>
+      <h5 i18n>Payment:</h5>
+      <div [ngSwitch]="invoiceInput.payment_method">
+        <div *ngSwitchCase="'BANK_TRANSFER'">
+          <ul class="list-unstyled">
+            <li>przelew bankowy</li>
+            <li>termin płatności: {{invoiceInput.payment_due_date | date:'yyyy-MM-dd'}}</li>
+            <li>numer konta: {{invoiceInput.payment_bank_account | ibanFormat}}</li>
+          </ul>
+        </div>
+        <div *ngSwitchCase="'CASH'">cash</div>
+      </div>
+    </div>
+    <div class="col" *ngIf="invoiceInput.note">
+      <h5 i18n>Note</h5>
+      <p>{{invoiceInput.note}}</p>
+    </div>
+  </div>
+  <div class="d-none d-print-flex row mt-5 pt-5">
+    <div class="col">
+      <hr>
+      <p i18n>Issuer sign</p>
+    </div>
+    <div class="col">
+      <hr>
+      <p i18n>Contractor sign</p>
+    </div>
+  </div>
+</div>

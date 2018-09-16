@@ -1,0 +1,19 @@
+<div class="card mt-3">
+  <h5 class="card-header">Invoice records</h5>
+  <ul class="list-group list-group-flush">
+    <li [ngClass]="{'list-group-item': true,  'bg-light': i%2===1}" *ngFor="let invoice of invoiceRecords; let i = index;">
+      <div class="row">
+        <div class="col col-11">
+          <app-invoice-record [no]="i" [initRecord]="invoice" (onRecordChange)="onRecordChange(i, $event)"></app-invoice-record>
+        </div>
+        <div class="col col-1">
+          <a class="btn btn-light btn-sm m-1 float-right" (click)="onRecordUp(i)" *ngIf="i !== 0"><i class="fa fa-arrow-up"></i></a>
+          <a class="btn btn-light btn-sm m-1 float-right" (click)="onRecordDown(i)" *ngIf="i !== invoiceRecords.length-1"><i class="fa fa-arrow-down"></i></a>
+          <a class="btn btn-success text-light btn-sm m-1 float-right" (click)="addRecord()" *ngIf="i === invoiceRecords.length-1"><i class="fa fa-plus"></i></a>
+          <a class="btn btn-danger text-light btn-sm m-1 float-right" (click)="delRecord(i)" *ngIf="invoiceRecords.length > 1"><i class="fa fa-minus"></i></a>
+          <a class="btn btn-info text-light btn-sm m-1 float-right" (click)="clearRecord(i)" *ngIf="invoiceRecords.length === 1"><i class="fa fa-times-circle"></i></a>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

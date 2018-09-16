@@ -1,0 +1,54 @@
+<div class="card mt-3">
+  <h5 class="card-header">Payment</h5>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-3 border-right">
+        <div class="form-group">
+          <label for="inputUnits">Payment options</label>
+          <select class="custom-select" id="inputUnits" [ngModel]="selectedOption" (ngModelChange)="selectedOption = $event; onChangePayment()">
+            <option [value]="way.BANK_TRANSFER">bank transfer</option>
+            <option [value]="way.CASH">cash</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-9">
+        <div *ngIf="selectedOption == way.BANK_TRANSFER; then onBankTransfer"></div>
+        <div *ngIf="selectedOption == way.CASH; then onCash"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #onBankTransfer>
+  <h6>Bank Transfer</h6>
+  <div class="form-group row">
+    <label for="inputBankTransferDueDate" class="col-sm-2 col-form-label">Due date</label>
+    <div class="col-sm-10">
+      <input type="date" class="form-control" id="inputBankTransferDueDate"
+             [ngModel]="dueDate | date:'yyyy-MM-dd'"
+             (ngModelChange)="dueDate = $event; onChangePayment()"
+             [value]="dueDate | date:'yyyy-MM-dd'">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="inputBankAccount" class="col-sm-2 col-form-label">Bank account</label>
+    <div class="col-sm-10">
+      <select class="form-control" id="inputBankAccount" [ngModel]="selectedAccount" (ngModelChange)="selectedAccount = $event; onChangePayment()">
+        <option *ngFor="let account of selectedIssuerAccounts" [value]="account.baseNumber">{{account.name}} - {{account.baseNumber}}</option>
+      </select>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #onCash>
+  <h6>Cash</h6>
+  <div class="form-group row">
+    <label for="inputCashDueDate" class="col-sm-2 col-form-label">Due date</label>
+    <div class="col-sm-10">
+      <input type="date" class="form-control" id="inputCashDueDate"
+             [ngModel]="dueDate | date:'yyyy-MM-dd'"
+             (ngModelChange)="dueDate = $event; onChangePayment()"
+             [value]="dueDate | date:'yyyy-MM-dd'">
+    </div>
+  </div>
+</ng-template>

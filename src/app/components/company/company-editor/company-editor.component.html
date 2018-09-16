@@ -1,0 +1,209 @@
+<ng-template #loadingTaxOffices>
+  <div class="custom-select">loading...</div>
+</ng-template>
+
+<form (ngSubmit)="onSubmit($event)" #companyForm="ngForm">
+
+  <div class="row">
+    <div class="col-6">
+
+      <div class="card mt-3">
+        <h5 class="card-header">Company name</h5>
+        <div class="card-body">
+          <div class="form-group row">
+            <div class="col">
+              <label for="inputCompanyShortName">Company short name</label>
+              <input type="text" class="form-control"
+                     id="inputCompanyShortName"
+                     placeholder="Short name"
+                     name="inputCompanyShortName"
+                     [(ngModel)]="company.company_short_name">
+            </div>
+            <div class="col">
+              <label for="inputCompanyFullName">Company full name</label>
+              <input type="text" class="form-control"
+                     id="inputCompanyFullName"
+                     placeholder="Full name"
+                     name="inputCompanyFullName"
+                     [(ngModel)]="company.company_full_name">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mt-3">
+        <h5 class="card-header">ID & taxes</h5>
+        <div class="card-body">
+          <div class="form-group row">
+            <label for="inputNip" class="col-sm-2 col-form-label">NIP</label>
+            <div class="col-sm-10">
+              <input type="text"
+                     class="form-control"
+                     id="inputNip"
+                     placeholder="NIP EU"
+                     name="inputNip"
+                     [(ngModel)]="company.nip"
+              >
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputRegon" class="col-sm-2 col-form-label">Regon</label>
+            <div class="col-sm-10">
+              <input type="text"
+                     class="form-control"
+                     id="inputRegon"
+                     placeholder="Regon"
+                     name="inputRegon"
+                     [(ngModel)]="company.regon">
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <label for="inputTaxOffice" class="col-sm-2 col-form-label">Tax office</label>
+            <div class="col-sm-8">
+              <select class="custom-select"
+                      id="inputTaxOffice"
+                      name="inputTaxOffice"
+                      *ngIf="taxOffices; else loadingTaxOffices"
+                      [(ngModel)]="company.tax_info.tax_office_id">
+                <option value="none">None</option>
+                <option *ngFor="let taxOffice of taxOffices;" [value]="taxOffice.id">{{taxOffice.address.city}}, {{taxOffice.name}}</option>
+              </select></div>
+            <div class="col-sm-2">
+              <div class="form-check mt-2">
+                <input class="form-check-input"
+                       type="checkbox"
+                       id="isVatPayer"
+                       name="checkboxVatPayer"
+                       [(ngModel)]="company.tax_info.vat_payer">
+                <label class="form-check-label" for="isVatPayer">
+                  VAT payer
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mt-3">
+        <h5 class="card-header">Representation</h5>
+        <div class="card-body">
+          <div class="form-group row">
+            <label for="inputRepresentationLastName" class="col-sm-2 col-form-label">Last name</label>
+            <div class="col-sm-10">
+              <input type="text"
+                     class="form-control"
+                     id="inputRepresentationLastName"
+                     placeholder="Last name"
+                     name="inputRepresentationLastName"
+                     [(ngModel)]="company.representation.last_name">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputRepresentationFirstName" class="col-sm-2 col-form-label">First name</label>
+            <div class="col-sm-10">
+              <input type="text"
+                     class="form-control"
+                     id="inputRepresentationFirstName"
+                     placeholder="First name"
+                     name="inputRepresentationFirstName"
+                     [(ngModel)]="company.representation.first_name">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputRepresentationSecondName" class="col-sm-2 col-form-label">Second name</label>
+            <div class="col-sm-10">
+              <input type="text"
+                     class="form-control"
+                     id="inputRepresentationSecondName"
+                     placeholder="Second name"
+                     name="inputRepresentationSecondName"
+                     [(ngModel)]="company.representation.second_name">
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+    <div class="col-6">
+
+      <div class="card mt-3">
+        <h5 class="card-header">Company address</h5>
+        <div class="card-body">
+          <div class="form-group row">
+            <div class="col">
+              <label for="inputCompanyAddressStreet">Street</label>
+              <input type="text"
+                     class="form-control"
+                     id="inputCompanyAddressStreet"
+                     placeholder="Street"
+                     name="inputCompanyAddressStreet"
+                     [(ngModel)]="company.main_address.street">
+            </div>
+            <div class="col col-4">
+              <label for="inputCompanyAddressHouse">House</label>
+              <input type="text"
+                     class="form-control"
+                     id="inputCompanyAddressHouse"
+                     placeholder="House No"
+                     name="inputCompanyAddressHouse"
+                     [(ngModel)]="company.main_address.house">
+            </div>
+            <div class="col col-4">
+              <label for="inputCompanyAddressLocal">Local</label>
+              <input type="text"
+                     class="form-control"
+                     id="inputCompanyAddressLocal"
+                     placeholder="Local No"
+                     name="inputCompanyAddressLocal"
+                     [(ngModel)]="company.main_address.local">
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <div class="col col-4">
+              <label for="inputCompanyAddressCity">City</label>
+              <input type="text"
+                     class="form-control"
+                     id="inputCompanyAddressCity"
+                     placeholder="City"
+                     name="inputCompanyAddressCity"
+                     [(ngModel)]="company.main_address.city">
+            </div>
+            <div class="col col-4">
+              <label for="inputCompanyAddressPostCode">Post code</label>
+              <input type="text"
+                     class="form-control"
+                     id="inputCompanyAddressPostCode"
+                     placeholder="Postal code"
+                     name="inputCompanyAddressPostCode"
+                     [(ngModel)]="company.main_address.postal_code">
+            </div>
+            <div class="col col-4">
+              <label for="inputCompanyAddressPostOffice">Post office</label>
+              <input type="text"
+                     class="form-control"
+                     id="inputCompanyAddressPostOffice"
+                     placeholder="Post office"
+                     name="inputCompanyAddressPostOffice"
+                     [(ngModel)]="company.main_address.post_office_city">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mt-3">
+        <h5 class="card-header">Payments</h5>
+        <div class="card-body">
+          <app-accounts-list-editor [initialAccounts]="companyAccounts" (accountsListChange)="updateAccounts($event)"></app-accounts-list-editor>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="float-right mt-3 mb-5">
+    <button type="submit" class="btn btn-lg btn-primary">Submit</button>
+    <button type="button" class="btn btn-lg btn-link" (click)="onCancel()">Cancel</button>
+  </div>
+
+</form>

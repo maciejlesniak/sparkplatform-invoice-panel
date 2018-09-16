@@ -1,0 +1,46 @@
+<div>
+  <div class="form-group form-row">
+    <label for="inputSubject" class="col-sm-2 col-form-label"><span class="text-muted">Subject</span> #{{no+1}}</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="inputSubject" placeholder="Subject" [(ngModel)]="subject" (change)="emitChange()">
+    </div>
+  </div>
+
+  <div class="form-group form-row">
+    <div class="col">
+      <label for="inputQty" class="col-form-label">Qty</label>
+      <input type="number" class="form-control" id="inputQty" [(ngModel)]="qty" (change)="emitChange()">
+    </div>
+
+    <div class="col">
+      <label for="inputUnits" class="col-form-label">Units</label>
+      <select class="custom-select" id="inputUnits" (change)="emitChange()" [(ngModel)]="units">
+        <option value="" [selected]="initRecord === undefined">select...</option>
+        <option *ngFor="let avUnit of availableUnits" value="{{avUnit.shortName}}" [selected]="avUnit.shortName === units">{{avUnit.name}}</option>
+      </select>
+    </div>
+    <div class="col">
+      <label for="inputUnitPriceNett" class="col-form-label">Nett unit price</label>
+      <input type="number" class="form-control" id="inputUnitPriceNett" [(ngModel)]="unitPriceNett" (change)="emitChange()">
+    </div>
+    <div class="col">
+      <label for="inputTax" class="col-form-label">VAT tax value</label>
+      <select class="custom-select" id="inputTax" (change)="emitChange()" [(ngModel)]="vat">
+        <option value="">select...</option>
+        <option *ngFor="let avRate of availableVatRates" value="{{avRate.id}}" [selected]="avRate.id === vat">{{avRate.name}}</option>
+      </select>
+    </div>
+    <div class="col">
+      <label for="inputTotalPriceNett" class="col-form-label">Nett total price</label>
+      <input type="text" class="form-control-plaintext text-right" id="inputTotalPriceNett"
+             value="{{computeNettTotalPrice(unitPriceNett, qty) | currency: currencySign : 'symbol-narrow': '0.2-2'}}"
+             readonly>
+    </div>
+    <div class="col">
+      <label for="inputTotalPriceGross" class="col-form-label">Gross total price</label>
+      <input type="text" class="form-control-plaintext text-right" id="inputTotalPriceGross"
+             value="{{computeGrossTotalPrice(unitPriceNett, qty, vat) | currency: currencySign : 'symbol-narrow': '0.2-2'}}"
+             readonly>
+    </div>
+  </div>
+</div>

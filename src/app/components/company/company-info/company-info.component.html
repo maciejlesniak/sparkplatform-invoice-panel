@@ -1,0 +1,113 @@
+<div class="container mt-5" *ngIf="company; else loading">
+  <div class="row">
+    <div class="col">
+      <h1>{{company.full_name}}</h1>
+      <small class="text-muted">object id: {{company.id}}</small>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col">
+      <dl class="row">
+        <div *ngIf="company; then companyBasics"></div>
+        <div *ngIf="taxOffice; then taxes"></div>
+        <div *ngIf="company.coordinator; then representation"></div>
+      </dl>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #loading>
+  Loading...
+</ng-template>
+
+<ng-template #taxes>
+  <dt class="col-sm-3 text-truncate">Taxes</dt>
+  <dd class="col-sm-9">
+    <dl class="row mb-0">
+      <dt class="col-sm-4">Tax office name</dt>
+      <dd class="col-sm-8">
+        <span>{{taxOffice.name}}</span><br>
+        <small class="text-muted"> object id: {{taxOffice.id}}</small>
+      </dd>
+      <dt class="col-sm-4">Address</dt>
+      <dd class="col-sm-8">
+        <address>
+          {{taxOffice.address.street}} {{taxOffice.address.house}} {{taxOffice.address.local}}<br>
+          {{taxOffice.address.zip}} {{taxOffice.address.zip_city}}<br>
+          {{taxOffice.address.city}} {{taxOffice.address.country}}
+        </address>
+      </dd>
+    </dl>
+    <h6>Tax accounts</h6>
+    <dl class="row" *ngFor="let account of taxOffice.accounts">
+      <dt class="col-sm-4">{{account.name}}</dt>
+      <dd class="col-sm-8">{{account.baseNumber | ibanFormat}}</dd>
+    </dl>
+  </dd>
+</ng-template>
+
+<ng-template #representation>
+  <dt class="col-sm-3">Representation</dt>
+  <dd class="col-sm-9">
+    <dl class="row">
+      <dt class="col-sm-4">First name</dt>
+      <dd class="col-sm-8">{{company.coordinator.first_name}}</dd>
+      <dt class="col-sm-4">Second name</dt>
+      <dd class="col-sm-8">{{company.coordinator.second_name}}</dd>
+      <dt class="col-sm-4">Last name</dt>
+      <dd class="col-sm-8">{{company.coordinator.last_name}}</dd>
+    </dl>
+  </dd>
+</ng-template>
+
+<ng-template #companyBasics>
+  <dt class="col-sm-3">Full name</dt>
+  <dd class="col-sm-9">{{company.full_name}}</dd>
+
+  <dt class="col-sm-3">Short name</dt>
+  <dd class="col-sm-9">{{company.short_name}}</dd>
+
+  <dt class="col-sm-3">Address</dt>
+  <dd class="col-sm-9">
+    <address>
+      {{company.address.street}} {{company.address.house}} <span *ngIf="company.address.local">/ {{company.address.local}}</span><br>
+      {{company.address.zip}} {{company.address.zip_city}}<br>
+      {{company.address.city}} {{company.address.country}}
+    </address>
+  </dd>
+
+  <dt class="col-sm-3">Bank accounts</dt>
+  <dd class="col-sm-9">
+    <ul class="list-unstyled">
+      <li *ngFor="let account of company.accounts">
+  <dt>{{account.name}} <span class="text-muted font-weight-normal">({{account.type}})</span></dt>
+  <dd>{{account.baseNumber | ibanFormat}}</dd>
+  </li>
+  </ul>
+  </dd>
+
+  <dt class="col-sm-3 text-truncate">Identification</dt>
+  <dd class="col-sm-9">
+    <dl class="row">
+      <dt class="col-sm-4">NIP</dt>
+      <dd class="col-sm-8">{{company.nip | nipFormat}}</dd>
+      <dt class="col-sm-4">REGON</dt>
+      <dd class="col-sm-8">{{company.regon}}</dd>
+    </dl>
+  </dd>
+
+  <dt class="col-sm-3 text-truncate">VAT payer</dt>
+  <dd class="col-sm-9">
+    <span *ngIf="company.vat_payer; then vat_payer_confirmed else vat_payer_not_confirmed"></span>
+    <ng-template #vat_payer_confirmed>
+      <i class="fa fa-check-square-o" aria-hidden="true"></i><span class="ml-1">yes</span>
+    </ng-template>
+    <ng-template #vat_payer_not_confirmed>
+      <i class="fa fa-square-o" aria-hidden="true"></i><span class="ml-1">no</span>
+    </ng-template>
+  </dd>
+</ng-template>
+
+
+

@@ -1,0 +1,17 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col">
+      <h1>Contractor <kbd>{{contractorName}}</kbd> update</h1>
+      <small class="text-muted">Object id: {{companyId}}</small>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <app-company-editor
+        [initialCompany]="contractor"
+        [onCancelUrl]="'/contractors'"
+        (submittedCompany)="onSubmit($event)">
+      </app-company-editor>
+    </div>
+  </div>
+</div>

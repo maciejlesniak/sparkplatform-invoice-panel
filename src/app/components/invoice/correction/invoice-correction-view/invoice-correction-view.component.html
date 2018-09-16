@@ -1,0 +1,17 @@
+<ng-template #loading>loading...</ng-template>
+
+<div class="container mt-5" *ngIf="correctionNumber; else loading">
+  <div class="row">
+    <div class="col text-center">
+      <h1><span i18n>Correction invoice</span> {{correctionNumber}}</h1>
+      <p><span i18n>Creation date: {{correctionDate | date:'yyyy-MM-dd'}}</span></p>
+    </div>
+  </div>
+  <hr>
+
+  <app-invoice-regular-view [invoiceInput]="oldInvoice" [invoiceNumberCaption]="'old:'+correctionNumber"></app-invoice-regular-view>
+  <hr class="my-4 d-print-none">
+  <app-invoice-regular-view [invoiceInput]="newInvoice" [invoiceNumberCaption]="'new:'+correctionNumber"></app-invoice-regular-view>
+
+
+</div>

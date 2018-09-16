@@ -1,0 +1,45 @@
+<div class="card mt-3">
+  <div class="card-body">
+    <div class="form-group" *ngIf="initialCompanies; else loading">
+      <label for="inputCompanyIssuer">{{title}}</label>
+      <div *ngIf="initialCompanies.length > 1; then manyCompanies else oneComapny"></div>
+    </div>
+    <div *ngIf="selectedCompanyId != 'none'; then companyInfoIfAvailable"></div>
+  </div>
+</div>
+
+<ng-template #loading>
+  Loading...
+</ng-template>
+
+<ng-template #manyCompanies>
+  <select class="custom-select" id="inputCompanyIssuer"
+          [(ngModel)]="selectedCompanyId"
+          (ngModelChange)="onSelectCompany($event)">
+    <option [selected]="selectedCompanyId === 'none'" value="none">select...</option>
+    <option *ngFor="let company of initialCompanies;" [value]="company.id">{{company.company_full_name}}, VAT#: {{company.nip}}</option>
+  </select>
+</ng-template>
+
+<ng-template #oneComapny>
+  <input type="text" class="form-control" id="selectedOneCompany" disabled value="{{initialCompanies[0].company_full_name}}, VAT#: {{initialCompanies[0].nip}}">
+</ng-template>
+
+<ng-template #companyInfoIfAvailable>
+  <div class="card">
+    <h6 class="card-header">{{chosenCompany.company_full_name}}</h6>
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          <p>{{chosenCompany.main_address.street}} {{chosenCompany.main_address.house}} {{chosenCompany.main_address.local}}<br>
+            {{chosenCompany.main_address.postal_code}} {{chosenCompany.main_address.post_office_city}}<br>
+            {{chosenCompany.main_address.city}}</p>
+        </div>
+        <div class="col">
+          <p>Vat#: {{chosenCompany.nip}}<br>
+            Regon#: {{chosenCompany.regon}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,4 @@
+tr.borderless td {
+  border-top: none;
+  background: linear-gradient(to bottom,  #ffffff 0%,#fbfbfb 100%);
+}

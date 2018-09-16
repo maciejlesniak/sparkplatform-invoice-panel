@@ -1,0 +1,73 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col">
+      <h1>Invoice</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <form>
+
+        <div class="form-group row">
+          <div class="col">
+            <label for="inputInvoiceId">Invoice number</label>
+            <input type="text" class="form-control form-control-lg" id="inputInvoiceId" placeholder="Invoice #"
+                   [(ngModel)]="invoiceId"
+                   name="inputInvoiceId">
+          </div>
+          <div class="col">
+            <label for="inputInvoiceCreationDate">Creation date</label>
+            <input type="date" class="form-control form-control-lg" id="inputInvoiceCreationDate"
+                   [ngModel]="creationDate | date:'yyyy-MM-dd'"
+                   (ngModelChange)="creationDate = $event"
+                   [value]="creationDate | date:'yyyy-MM-dd'"
+                   name="inputInvoiceCreationDate">
+          </div>
+          <div class="col">
+            <label for="inputInvoiceSellDate">Sell date</label>
+            <input type="date" class="form-control form-control-lg" id="inputInvoiceSellDate"
+                   [ngModel]="sellDate | date:'yyyy-MM-dd'"
+                   (ngModelChange)="sellDate = $event"
+                   [value]="sellDate | date:'yyyy-MM-dd'"
+                   name="inputInvoiceSellDate">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <app-company-selector [title]="'Issuers'"
+                                  [initialCompaniesObservable]="listOfIssuers"
+                                  (onChoseCompany)="onChoseIssuer($event)"></app-company-selector>
+          </div>
+          <div class="col">
+            <app-company-selector [title]="'Contractors'"
+                                  [initialCompaniesObservable]="listOfContractors"
+                                  (onChoseCompany)="onChoseContractor($event)"></app-company-selector>
+          </div>
+        </div>
+
+        <app-invoice-records
+          [initialRecords]="initialInvoiceRecords"
+          (invoiceRecordsChange)="onInvoiceRecordsChange($event)">
+        </app-invoice-records>
+
+        <app-invoice-payment
+          [initialPayment]="initialPayment"
+          [issuerAccounts]="issuerAccountsChange"
+          (onPaymentUpdate)="onPaymentUpdate($event)">
+        </app-invoice-payment>
+
+        <app-invoice-note
+          [initialNote]="initialNote"
+          (onNoteUpdate)="onUpdateNote($event)">
+        </app-invoice-note>
+
+        <div class="float-right mt-3 mb-5">
+          <button type="submit" class="btn btn-lg btn-primary" (click)="onSubmit()">Create invoice</button>
+          <button type="button" class="btn btn-lg btn-link" (click)="onCancel()">Cancel</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

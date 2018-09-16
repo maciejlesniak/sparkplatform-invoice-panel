@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+    <file source-language="en" datatype="plaintext" original="ng2.template" target-language="pl">
+        <body>
+            <trans-unit id="a7501b0f7d2a2ebee510951802fdc2aa6993e987" datatype="html">
+                <source>Invoice</source>
+                <target>Faktura</target>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">app/components/invoice-view/invoice-view.component.ts</context>
+                    <context context-type="linenumber">8</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="cad1a4b0f18b4f7de446c9c8578bb47a7e687249" datatype="html">
+                <source>Creation date:</source>
+                <target>Data wystawienia:</target>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">app/components/invoice-view/invoice-view.component.ts</context>
+                    <context context-type="linenumber">9</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="69a4b59c63a1426f622e6691a3ef453fdab104d7" datatype="html">
+                <source>Sell date:</source>
+                <target>Data sprzedaży:</target>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">app/components/invoice-view/invoice-view.component.ts</context>
+                    <context context-type="linenumber">9</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="d3a1e02809bb8155051cc8a370a3f3eec3cced8d" datatype="html">
+                <source>Issuer</source>
+                <target>Sprzedawca:</target>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">app/components/invoice-view/invoice-view.component.ts</context>
+                    <context context-type="linenumber">14</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="6f7d0ed4967ad8eee665fba3da95cc747f2d0776" datatype="html">
+                <source>VAT#:</source>
+                <target>NIP:</target>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">app/components/invoice-view/invoice-view.component.ts</context>
+                    <context context-type="linenumber">19</context>
+                </context-group>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">app/components/invoice-view/invoice-view.component.ts</context>
+                    <context context-type="linenumber">29</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="4ed8c0baf2a55203b987d77adf8db684743f8c9f" datatype="html">
+                <source>Rep.:</source>
+                <target>Reprezentacja:</target>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">app/components/invoice-view/invoice-view.component.ts</context>
+                    <context context-type="linenumber">20</context>
+                </context-group>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">app/components/invoice-view/invoice-view.component.ts</context>
+                    <context context-type="linenumber">30</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="c54a5f30af0e928c3786a6cb1b7cda063684d00e" datatype="html">
+                <source>Contractor</source>
+                <target>Nabywca</target>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">app/components/invoice-view/invoice-view.component.ts</context>
+                    <context context-type="linenumber">24</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="6ddd111adc65ea7a206f01264da2c8a94adfef52" datatype="html">
+                <source>#</source>
+                <target>L.p.</target>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">app/components/invoice-view/invoice-view.component.ts</context>
+                    <context context-type="linenumber">39</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="4b0ca852bafa5037c4e64c7b18f9cd1e14b799de" datatype="html">
+                <source>Subject</source>
+                <target>Nazwa</target>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">app/components/invoice-view/invoice-view.component.ts</context>
+                    <context context-type="linenumber">40</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="3841794331853785859d777bcfa9a2326b8c61e6" datatype="html">
+                <source>Qty</source>
+                <target>Ilość</target>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">app/components/invoice-view/invoice-view.component.ts</context>
+                    <context context-type="linenumber">41</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="be537f4ddb09e1a2856314f2cbe84063ab6b4170" datatype="html">
+                <source>Units</source>
+                <target>j.m.</target>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">app/components/invoice-view/invoice-view.component.ts</context>
+                    <context context-type="linenumber">42</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="d3cfb2848bc462f9ca7d3ed64fc4e612b16e2498" datatype="html">
+                <source>Nett unit price</source>
+                <target>C.j. netto</target>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">app/components/invoice-view/invoice-view.component.ts</context>
+                    <context context-type="linenumber">43</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="0ebbf6e070b55dd94c00d0f96537c6fb49d59347" datatype="html">
+                <source>VAT %</source>
+                <target>VAT %</target>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">app/components/invoice-view/invoice-view.component.ts</context>
+                    <context context-type="linenumber">44</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="ca737761ad91c4be31c3ba321bbf4c1ad97e0024" datatype="html">
+                <source>Nett value</source>
+                <target>Wartość netto</target>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">app/components/invoice-view/invoice-view.component.ts</context>
+                    <context context-type="linenumber">45</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="ed4ed8e4c4f10758b0f75975bb478a3f3a4822da" datatype="html">
+                <source>VAT value</source>
+                <target>Wartość VAT</target>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">app/components/invoice-view/invoice-view.component.ts</context>
+                    <context context-type="linenumber">46</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="77f3e4bb79e634e5c2c31627458fce3933af6cb2" datatype="html">
+                <source>Gross value</source>
+                <target>Wartość brutto</target>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">app/components/invoice-view/invoice-view.component.ts</context>
+                    <context context-type="linenumber">47</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="d04d5b5d13ac9acf9750f1807f0227eeee98b247" datatype="html">
+                <source>Total</source>
+                <target>Razem</target>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">app/components/invoice-view/invoice-view.component.ts</context>
+                    <context context-type="linenumber">63</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="84e3316ca8def1bdc971d0d53c5673acdf59834d" datatype="html">
+                <source>Gross total price:</source>
+                <target>Razem wartość brutto:</target>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">app/components/invoice-view/invoice-view.component.ts</context>
+                    <context context-type="linenumber">81</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="fb3545e97e371069768103e01599f35e789d556c" datatype="html">
+                <source>Payment:</source>
+                <target>Płatność</target>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">app/components/invoice-view/invoice-view.component.ts</context>
+                    <context context-type="linenumber">84</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="35a45c676e4e62bb43b1d310d414bc705ca370d1" datatype="html">
+                <source>bank transfer, due date:</source>
+                <target>przelew, termin płatności:</target>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">app/components/invoice-view/invoice-view.component.ts</context>
+                    <context context-type="linenumber">87</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="76cf115f139b14b12178344b5bb250a794bb623c" datatype="html">
+                <source>cash</source>
+                <target>gotówka</target>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">app/components/invoice-view/invoice-view.component.ts</context>
+                    <context context-type="linenumber">88</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="5c54befce78d70e20c215f10a00e617245f53bc9" datatype="html">
+                <source>Note</source>
+                <target>Uwagi</target>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">app/components/invoice-view/invoice-view.component.ts</context>
+                    <context context-type="linenumber">93</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="0ee34cc1774201f03f5619e1f306b6330d3be03a" datatype="html">
+                <source>Issuer sign</source>
+                <target>Wystawił</target>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">app/components/invoice-view/invoice-view.component.ts</context>
+                    <context context-type="linenumber">100</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="64561891195cc9d8c8b135b89b1adb52393b8170" datatype="html">
+                <source>Contractor sign</source>
+                <target>Odebrał</target>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">app/components/invoice-view/invoice-view.component.ts</context>
+                    <context context-type="linenumber">104</context>
+                </context-group>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

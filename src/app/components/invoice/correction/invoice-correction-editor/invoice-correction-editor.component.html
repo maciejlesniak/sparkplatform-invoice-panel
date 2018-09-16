@@ -1,0 +1,123 @@
+<ng-template #loading>
+  Loading...
+</ng-template>
+
+<ng-template #correction_form>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col">
+        <h1>Invoice correction</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <form>
+
+          <div class="form-group row">
+            <div class="col col-4">
+              <div class="alert alert-warning">
+                <label for="inputInvoiceId">Correction invoice number</label>
+                <input type="text" class="form-control form-control-lg" id="inputCorrectionInvoiceId" placeholder="Correction #"
+                       [(ngModel)]="inputCorrectionInvoiceId"
+                       name="inputCorrectionInvoiceId">
+              </div>
+            </div>
+            <div class="col col-4">
+              <div class="alert alert-warning">
+                <label for="inputInvoiceId">Correction date</label>
+                <input type="date"
+                       class="form-control form-control-lg"
+                       id="inputCorrectionDate"
+                       [ngModel]="correctionDate | date:'yyyy-MM-dd'"
+                       (ngModelChange)="onCorrectionDateChange($event)"
+                       [value]="correctionDate | date:'yyyy-MM-dd'"
+                       name="inputCorrectionDate">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col">
+              <div class="alert alert-primary" role="alert">
+                <h4 class="alert-heading">Invoice correction quick reference</h4>
+                <p>You can see original invoice data below. You can change any of editable elements.<br>
+                  All changes will be considered as correction. Any time you can revoke changes by pressing "X" button next to corrected element.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col">
+              <label for="inputInvoiceId">Invoice number</label>
+              <input type="text"
+                     class="form-control form-control-lg"
+                     id="inputInvoiceId"
+                     placeholder="Invoice #"
+                     [(ngModel)]="correctedInvoice.invoiceId"
+                     name="inputInvoiceId">
+            </div>
+            <div class="col">
+              <label for="inputInvoiceCreationDate">Creation date</label>
+              <input type="date"
+                     class="form-control form-control-lg"
+                     id="inputInvoiceCreationDate"
+                     [ngModel]="correctedInvoice.creationDate | date:'yyyy-MM-dd'"
+                     (ngModelChange)="onCreationDateChange($event)"
+                     [value]="correctedInvoice.creationDate | date:'yyyy-MM-dd'"
+                     name="inputInvoiceCreationDate">
+            </div>
+            <div class="col">
+              <label for="inputInvoiceSellDate">Sell date</label>
+              <input type="date"
+                     [ngClass]="{'form-control form-control-lg': true, 'border-warning': correctedInvoice.sellDate !== baseInvoice.sellDate}"
+                     id="inputInvoiceSellDate"
+                     [ngModel]="correctedInvoice.sellDate | date:'yyyy-MM-dd'"
+                     (ngModelChange)="onSellDateChange($event)"
+                     [value]="correctedInvoice.sellDate | date:'yyyy-MM-dd'"
+                     name="inputInvoiceSellDate">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <app-company-selector [title]="'Issuers'"
+                                    [initialCompaniesObservable]="listOfIssuers"
+                                    (onChoseCompany)="onChoseIssuer($event)"></app-company-selector>
+            </div>
+            <div class="col">
+              <app-company-selector [title]="'Contractors'"
+                                    [initialCompaniesObservable]="listOfContractors"
+                                    (onChoseCompany)="onChoseContractor($event)"></app-company-selector>
+            </div>
+          </div>
+
+          <app-invoice-records
+            [initialRecords]="correctedInvoice.invoiceRecords"
+            (invoiceRecordsChange)="onInvoiceRecordsChange($event)">
+          </app-invoice-records>
+
+          <app-invoice-payment
+            [initialPayment]="correctedInvoice.payment"
+            [issuerAccounts]="issuerAccountsListChange"
+            (onPaymentUpdate)="onPaymentUpdate($event)">
+          </app-invoice-payment>
+
+          <app-invoice-note
+            [initialNote]="correctedInvoice.note"
+            (onNoteUpdate)="onUpdateNote($event)">
+          </app-invoice-note>
+
+          <div class="float-right mt-3 mb-5">
+            <button type="submit" class="btn btn-lg btn-primary" (click)="onSubmit()">Create correction for invoice {{baseInvoice.invoiceId}}</button>
+            <button type="button" class="btn btn-lg btn-link" routerLink="/documents/invoices">Cancel</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+<div *ngIf="(correctedInvoice !== undefined && inputCorrectionInvoiceId !== null); then correction_form else loading"></div>
