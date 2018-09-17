@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  HOST: '',
-  DEFAULT_USER_AUTHORIZATION_HEADER: ''
+  HOST: 'VAR_HOST',
+  DEFAULT_USER_AUTHORIZATION_HEADER: 'VAR_AUTHORIZATION'
 };
