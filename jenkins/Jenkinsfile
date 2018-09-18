@@ -1,0 +1,36 @@
+pipeline {
+  agent {
+        docker {
+            image 'node:8-alpine'
+            args '-p 3000:3000'
+        }
+    }
+
+  stages {
+
+    stage('Prepare') {
+      steps {
+        sh 'npm install'
+
+        sh "sed -i -e 's/VAR_HOST/${params.VAR_HOST}/g' src/environments/environment.tmp.ts"
+        sh "sed -i -e 's/VAR_AUTHORIZATION/${params.VAR_AUTHORIZATION}/g' src/environments/environment.tmp.ts"
+
+        sh 'cp src/environments/environment.tmp.ts src/environments/environment.ts'
+        sh 'cp src/environments/environment.tmp.ts src/environments/environment.prod.ts'
+
+        sh 'rm -rf src/environments/environment.tmp.ts'
+      }
+    }
+
+    stage('Build') {
+      steps {
+        sh 'npm run build_pl'
+        zip dir: 'dist/', zipFile: 'panel.zip'
+        archiveArtifacts artifacts: 'panel.zip', fingerprint: true
+        sh 'rm -rf panel.zip'
+      }
+    }
+
+  }
+
+}
